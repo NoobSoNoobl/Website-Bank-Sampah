@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Sampah Ceria - Kelola Sampah, Jaga Alam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================
+            1. SKEMA WARNA LEBIH CERIA & PROFESIONAL
+            ================================= */
+        :root {
+            --color-primary: #1E88E5; /* Biru Cerah */
+            --color-secondary: #43A047; /* Hijau Alam yang Kuat */
+            --color-accent: #FFC107; /* Kuning Cerah */
+            --color-text-dark: #263238; /* Abu Gelap */
+            --color-bg-light: #F0F4F8; /* Abu Biru Muda (Clean Look) */
+            --color-bg-card-light: #FFFFFF;
+            --color-text-on-primary: #FFFFFF;
+        }
+
+        /* Mode Gelap */
+        .dark-mode {
+            --color-primary: #0D47A1; /* Biru Gelap */
+            --color-secondary: #66BB6A; /* Hijau Terang */
+            --color-accent: #FFC107; /* Kuning */
+            --color-text-dark: #E0F7FA;
+            --color-bg-light: #121212; /* Abu Super Gelap */
+            --color-bg-card-light: #1E1E1E; /* Abu Gelap untuk Card */
+            --color-text-on-primary: #FFFFFF;
+        }
+
+        /* Global Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--color-secondary);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            padding: 1rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--color-text-on-primary);
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--color-accent);
+            color: var(--color-text-dark);
+        }
+
+        /* Mode Toggle Button */
+        #mode-toggle {
+            background-color: var(--color-accent);
+            color: var(--color-text-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s, color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #mode-toggle:hover {
+            background-color: #FFD700;
+            transform: scale(1.05);
+        }
+
+        /* =================================
+            2. GAMBAR DI BAWAH HEADER & HERO OVERLAY (Perbaikan Ukuran)
+            ================================= */
+        .image-banner {
+            width: 100%;
+            height: 350px; 
+            position: relative;
+            margin-bottom: 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            filter: brightness(0.6); 
+            position: absolute;
+            z-index: 1; 
+        }
+
+        /* Hero Section - Overlay di atas gambar */
+        .hero {
+            position: relative;
+            z-index: 2;
+            padding: 50px 0;
+            text-align: center;
+            color: white; 
+        }
+
+        .hero h2 {
+            color: var(--color-accent);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+        }
+        
+        /* Konten utama setelah banner */
+        main.container {
+            padding: 40px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px; 
+            margin-top: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn.primary {
+            background-color: var(--color-secondary);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* =================================
+            3. MATERI CARD & MODAL
+            ================================= */
+        .material-bar {
+            padding: 40px 0;
+        }
+
+        .material-bar h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--color-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .material-bar h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-secondary);
+            border-radius: 5px;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 30px; 
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: var(--color-bg-card-light);
+            padding: 30px;
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            flex: 1;
+            min-width: 280px;
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, border-color 0.4s;
+            border-left: 5px solid var(--color-secondary);
+            text-align: center;
+            cursor: pointer; 
+        }
+
+        .card:hover {
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-left-color: var(--color-accent);
+        }
+        
+        .card .icon-wrapper {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            color: var(--color-text-dark);
+        }
+        
+        /* Modal Pop-up Styles */
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); 
+            z-index: 1500; 
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto; 
+        }
+        
+        .modal-content {
+            background-color: var(--color-bg-card-light);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: scale(0.8); 
+            opacity: 0;
+            transition: all 0.3s ease-out;
+            margin: 20px auto; 
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--color-text-dark);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--color-primary);
+        }
+
+        .modal-content h3 {
+            color: var(--color-primary);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 10px;
+        }
+        
+        .modal-content p, .modal-content li {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        /* Video Section */
+        .video-section {
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Rasio 16:9 */
+            height: 0;
+            margin: 0 auto 20px;
+            max-width: 800px; /* Batasan lebar */
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* =================================
+            5. PERBAIKAN FOOTER
+            ================================= */
+        footer {
+            background-color: var(--color-text-dark);
+            color: #000000;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+        /* footer {
+            background-color: var(--color-text-dark);
+            color: #969595;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        } */
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: var(--color-accent);
+        }
+
+        footer a:hover {
+            color: var(--color-secondary);
+        }
+
+        /* =================================
+            6. CHAT AI BUTTON (Fixed Position & Interaktif)
+            ================================= */
+        #ai-chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--color-secondary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px; 
+            height: 60px; 
+            font-size: 1.8rem; 
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            z-index: 2000; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ai-chat-button:hover {
+            background-color: var(--color-primary);
+            transform: scale(1.1); 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Chat Modal (Menyesuaikan dengan posisi tombol) */
+        .chat-modal {
+            position: fixed;
+            bottom: 100px; 
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: var(--color-bg-card-light);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .chat-modal.open {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-bg-light);
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: var(--color-bg-card-light);
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-family: inherit;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-light);
+        }
+
+        .chat-input button {
+            background-color: var(--color-secondary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .chat-input button:hover {
+            background-color: var(--color-primary);
+        }
+
+        .message-user, .message-ai {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message-user {
+            background-color: var(--color-primary);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message-ai {
+            background-color: var(--color-accent);
+            color: var(--color-text-dark);
+            align-self: flex-start;
+        }
+        
+        /* Responsiveness for smaller screens */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                padding: 10px 0;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .cards-container {
+                flex-direction: column;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+            .chat-modal {
+                width: 90%;
+                right: 5%;
+                bottom: 90px;
+                height: 70%;
+            }
+            .video-wrapper {
+                width: 95%;
+            }
+            #mode-toggle {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <header>
+        <div class="container">
+            <h1>Bank Sampah Ceria 🌳</h1>
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#materi">Materi</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </nav>
+            <button id="mode-toggle">☀ Mode Terang</button>
+        </div>
+    </header>
+
+    <div class="image-banner">
+        <img src="https://awsimages.detik.net.id/community/media/visual/2023/01/03/aksi-pandawara-dengan-membuat-konten-bersih-bersih-sungai-banyak-mendapat-apresiasi-dari-berbagai-kalangan-1_169.jpeg?w=1200" alt="Lingkungan Penuh Sampah dan Gotong Royong Membersihkan">
+        
+        <section id="beranda" class="hero container">
+            <h2>Selamat Datang di Portal Bank Sampah Ceria!</h2>
+            <p>Bersama kita wujudkan lingkungan yang bersih dan lestari. Mulai dari pilah sampah, tabung, dan dapatkan manfaatnya!</p>
+            <a href="#materi" class="btn primary">Pelajari Lebih Lanjut</a>
+        </section>
+    </div>
+
+    <main class="container">
+        <section id="materi" class="material-bar">
+            <h2>Materi Bank Sampah Pilihan</h2>
+            <div class="cards-container">
+                <div class="card" data-target="pilah">
+                    <span class="icon-wrapper"><i class="fas fa-recycle"></i></span>
+                    <h3>Memilah Sampah</h3>
+                    <p>Kenali jenis-jenis sampah dan cara memilahnya dengan benar. **(Klik untuk selengkapnya)**</p>
+                </div>
+                
+                <div class="card" data-target="tabung">
+                    <span class="icon-wrapper"><i class="fas fa-hand-holding-usd"></i></span>
+                    <h3>Cara Menabung</h3>
+                    <p>Langkah mudah menukarkan sampah terpilah Anda menjadi uang atau poin. **(Klik untuk selengkapnya)**</p>
+                </div>
+                
+                <div class="card" data-target="manfaat">
+                    <span class="icon-wrapper"><i class="fas fa-leaf"></i></span>
+                    <h3>Manfaat Lingkungan</h3>
+                    <p>Dampak positif Bank Sampah terhadap lingkungan dan ekonomi. **(Klik untuk selengkapnya)**</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+        
+        <section id="video" class="video-section">
+            <h2>Video Edukasi & Inspirasi Bank Sampah</h2>
+            <div style="text-align: center">
+              <video width="1024" height="576" controls>
+                <source src="Video Bank Sampah.mp4 ">
+              </video>
+            </div>
+            <p style="margin-top: 15px;">Tonton video inspiratif ini untuk melihat bagaimana Bank Sampah bekerja dan dampak nyata yang diberikannya!</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p id="kontak">Hubungi Kami: 
+                <a href="mailto:info@banksampahceria.com"><i class="fas fa-envelope"></i> info@banksampahceria.com</a> | 
+                <a href="tel:021123456"><i class="fas fa-phone"></i> (021) 123456</a>
+            </p>
+            <p>&copy; 2025 Bank Sampah Ceria. Kelola Sampah, Jaga Alam. 🌎</p>
+        </div>
+    </footer>
+
+    <div id="materi-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modal-title">Judul Materi</h3>
+            <div id="modal-body">
+                </div>
+        </div>
+    </div>
+
+    <button id="ai-chat-button" title="Tanya Asisten AI">
+        <i class="fas fa-robot"></i>
+    </button>
+    
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-header">
+            <span>Asisten AI Bank Sampah Ceria</span>
+            <button id="close-chat-btn">&times;</button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="message-ai">Halo! Saya Asisten AI Anda. Ada yang bisa saya bantu terkait pengelolaan sampah?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Ketik pertanyaan Anda...">
+            <button id="send-chat-btn">Kirim</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modeToggle = document.getElementById('mode-toggle');
+            const body = document.body;
+            
+            // Chat AI Elements
+            const chatButton = document.getElementById('ai-chat-button');
+            const chatModal = document.getElementById('chat-modal');
+            const closeChatBtn = document.getElementById('close-chat-btn');
+            const chatBody = document.getElementById('chat-body');
+            const chatInputField = document.getElementById('chat-input-field');
+            const sendChatBtn = document.getElementById('send-chat-btn');
+            
+            // Modal Materi Elements
+            const cards = document.querySelectorAll('.card');
+            const materiModal = document.getElementById('materi-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.querySelector('.modal-close');
+
+            // --- Database Materi (Konten Bacaan) ---
+            const materiDatabase = {
+                pilah: {
+                    title: "Panduan Lengkap Memilah Sampah",
+                    content: `
+                        <p>Memilah sampah adalah langkah pertama dan terpenting dalam pengelolaan sampah yang berkelanjutan. Pemilahan yang tepat meningkatkan nilai daur ulang.</p>
+                        <h4>Jenis-Jenis Utama Sampah:</h4>
+                        <ul>
+                            <li><strong>Anorganik Kering (Daur Ulang):</strong> Plastik (botol, kemasan), kertas (koran, kardus), logam (kaleng), kaca. Pastikan dicuci bersih dan dikeringkan.</li>
+                            <li><strong>Organik Basah (Kompos):</strong> Sisa makanan, kulit buah, daun kering, dan ampas kopi/teh. Sampah ini dapat diolah menjadi kompos.</li>
+                            <li><strong>Bahan Berbahaya dan Beracun (B3):</strong> Baterai bekas, lampu bekas, kemasan obat, dan alat elektronik. Kumpulkan secara terpisah di wadah khusus dan jangan dicampur.</li>
+                        </ul>
+                        <p>Dengan memilah, Anda tidak hanya membantu Bank Sampah, tetapi juga mengurangi volume sampah yang berakhir di TPA.</p>
+                    `
+                },
+                tabung: {
+                    title: "Langkah-Langkah Praktis Cara Menabung Sampah",
+                    content: `
+                        <p>Menabung sampah di Bank Sampah Ceria itu mudah dan menguntungkan. Berikut adalah langkah-langkahnya:</p>
+                        <ol>
+                            <li><strong>Pilahkan dan Bersihkan:</strong> Pastikan sampah anorganik (plastik, kertas, kaleng) Anda sudah bersih dari sisa makanan atau cairan. Sampah yang bersih memiliki nilai jual lebih tinggi.</li>
+                            <li><strong>Bawa ke Bank Sampah:</strong> Datang ke lokasi Bank Sampah Ceria atau pos penimbangan terdekat sesuai jadwal.</li>
+                            <li><strong>Penimbangan:</strong> Petugas akan menimbang sampah Anda berdasarkan jenisnya (misalnya, botol PET, HVS, kardus). Setiap jenis memiliki harga yang berbeda.</li>
+                            <li><strong>Catat di Buku Tabungan:</strong> Jumlah uang atau poin dari hasil timbangan akan dicatat dalam buku tabungan Bank Sampah Anda.</li>
+                            <li><strong>Tarik Dana:</strong> Anda bisa menarik dana atau menggunakan poin tabungan Anda untuk berbagai program setelah mencapai batas minimum.</li>
+                        </ol>
+                        <p>Ayo, jadikan sampah sebagai sumber tabungan dan keberlanjutan ekonomi!</p>
+                    `
+                },
+                manfaat: {
+                    title: "Dampak Positif Bank Sampah bagi Lingkungan dan Ekonomi",
+                    content: `
+                        <p>Partisipasi Anda dalam Bank Sampah memberikan manfaat berlipat ganda bagi lingkungan, komunitas, dan diri Anda sendiri.</p>
+                        <h4>Manfaat Utama:</h4>
+                        <ul>
+                            <li><strong>Pengurangan Polusi:</strong> Mengurangi jumlah sampah yang dibuang ke TPA, yang berarti mengurangi emisi gas metana penyebab pemanasan global.</li>
+                            <li><strong>Pelestarian Sumber Daya:</strong> Daur ulang mengurangi kebutuhan untuk mengeksploitasi sumber daya alam baru (pohon, minyak bumi, mineral).</li>
+                            <li><strong>Peningkatan Ekonomi Masyarakat:</strong> Sampah yang tadinya tidak berguna menjadi komoditas yang menghasilkan uang bagi penabung (masyarakat) dan membantu menciptakan lapangan kerja di sektor daur ulang.</li>
+                            <li><strong>Lingkungan Bersih:</strong> Mendorong kesadaran masyarakat untuk menjaga kebersihan lingkungan sekitar.</li>
+                            <li><strong>Menciptakan Komunitas Peduli:</strong> Membangun kebersamaan dan kepedulian antarwarga terhadap lingkungan.</li>
+                        </ul>
+                        <p>Setiap botol plastik yang Anda pilah adalah kontribusi nyata bagi bumi yang lebih hijau.</p>
+                    `
+                }
+            };
+
+            // --- Fungsi Mode Terang/Gelap ---
+            const setMode = (mode) => {
+                if (mode === 'dark') {
+                    body.classList.add('dark-mode');
+                    body.classList.remove('light-mode');
+                    modeToggle.innerHTML = '🌙 Mode Gelap';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.add('light-mode');
+                    body.classList.remove('dark-mode');
+                    modeToggle.innerHTML = '☀ Mode Terang';
+                    localStorage.setItem('theme', 'light');
+                }
+            };
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setMode(savedTheme);
+            } else {
+                setMode('light');
+            }
+
+            modeToggle.addEventListener('click', () => {
+                if (body.classList.contains('light-mode')) {
+                    setMode('dark');
+                } else {
+                    setMode('light');
+                }
+            });
+
+            // --- Smooth Scrolling ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // --- Logika Modal Materi Pop-up ---
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const targetKey = card.getAttribute('data-target');
+                    const materi = materiDatabase[targetKey];
+
+                    if (materi) {
+                        modalTitle.textContent = materi.title;
+                        modalBody.innerHTML = materi.content;
+                        materiModal.style.display = 'flex';
+                        setTimeout(() => materiModal.classList.add('active'), 10);
+                        body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            const closeModal = () => {
+                materiModal.classList.remove('active');
+                setTimeout(() => {
+                    materiModal.style.display = 'none';
+                    body.style.overflow = 'auto'; 
+                }, 300);
+            };
+
+            modalClose.addEventListener('click', closeModal);
+
+            materiModal.addEventListener('click', (e) => {
+                if (e.target === materiModal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && materiModal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+
+            // --- Logika Video Play (Thumbnail klik untuk ganti ke iframe) ---
+            const videoContainer = document.getElementById('video-container');
+            const videoThumbnail = document.getElementById('video-thumbnail');
+            // Video ID: Wf09pV7x-OU
+            const videoId = videoThumbnail.src.split('/').pop().replace('.jpg', '').replace('maxresdefault', '').replace('0', ''); 
+
+            const createIframe = () => {
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                
+                videoContainer.innerHTML = '';
+                videoContainer.appendChild(iframe);
+            };
+
+            if (videoThumbnail) {
+                videoThumbnail.addEventListener('click', createIframe);
+            }
+
+
+            // --- Logika Chat AI (Simulasi) ---
+            const addMessage = (text, sender) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = sender === 'user' ? 'message-user' : 'message-ai';
+                messageDiv.textContent = text;
+                chatBody.appendChild(messageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            };
+
+            const simulateAIResponse = (userMessage) => {
+                let response = "Maaf, saya hanya Asisten simulasi. Silakan cari informasi lebih lanjut di bagian 'Materi Bank Sampah' atau 'Video Edukasi' kami.";
+                const lowerCaseMsg = userMessage.toLowerCase();
+
+                if (lowerCaseMsg.includes("sampah")) {
+                    response = "Bank Sampah Ceria menerima sampah anorganik terpilah seperti plastik, kertas, dan logam. Apakah Anda ingin tahu cara memilahnya?";
+                } else if (lowerCaseMsg.includes("menabung")) {
+                    response = "Untuk menabung, pisahkan sampah Anda, bawa ke lokasi Bank Sampah terdekat, dan petugas kami akan menimbangnya. Anda akan menerima catatan tabungan berupa uang atau poin.";
+                } else if (lowerCaseMsg.includes("terima kasih")) {
+                    response = "Sama-sama! Senang bisa membantu Anda menjaga lingkungan. Mari bersama wujudkan Indonesia bersih! 🌿";
+                }
+
+                // Tambahkan delay untuk simulasi loading respons
+                setTimeout(() => {
+                    addMessage(response, 'ai');
+                }, 1000);
+            };
+
+            const sendMessage = () => {
+                const message = chatInputField.value.trim();
+                if (message) {
+                    addMessage(message, 'user');
+                    simulateAIResponse(message);
+                    chatInputField.value = '';
+                }
+            };
+
+            chatButton.addEventListener('click', () => {
+                chatModal.classList.toggle('open');
+                if (chatModal.classList.contains('open')) {
+                   chatInputField.focus();
+                }
+            });
+
+            closeChatBtn.addEventListener('click', () => {
+                chatModal.classList.remove('open');
+            });
+
+            sendChatBtn.addEventListener('click', sendMessage);
+
+            chatInputField.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
