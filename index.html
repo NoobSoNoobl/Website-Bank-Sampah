@@ -157,7 +157,7 @@
         .hero {
             position: relative;
             z-index: 2;
-            padding: 50px 0;
+            padding: 50px 20px; /* Tambahkan padding horizontal agar tidak terlalu mepet */
             text-align: center;
             color: white; 
         }
@@ -225,7 +225,7 @@
             border-radius: 8px;
             margin: 0 auto;
             max-width: 800px;
-            text-align: justify;
+            text-align: left;
         }
 
         /* Card Preview Home */
@@ -597,93 +597,151 @@
         }
         
         /* =================================
-            7. RESPONSIVENESS (PERBAIKAN TAMPILAN HANDPHONE)
+            7. RESPONSIVENESS (PENGUATAN TAMPILAN HANDPHONE)
             ================================= */
         @media (max-width: 768px) {
+            /* Perbaikan Global */
+            .container {
+                width: 95%; /* Sedikit lebih lebar di mobile untuk memaksimalkan ruang */
+            }
+
             /* # Perbaikan Header dan Navigasi */
             header .container {
                 flex-direction: column;
                 text-align: center;
-                padding: 10px 0; 
+                padding: 15px 0; 
             }
             
             header h1 {
-                font-size: 1.8rem; /* Ukuran judul lebih kecil */
+                font-size: 1.5rem; /* Ukuran judul lebih kecil */
                 margin-bottom: 10px; 
+            }
+
+            nav {
+                width: 100%; /* Pastikan nav menggunakan lebar penuh */
             }
 
             nav ul {
                 padding: 10px 0;
                 justify-content: center;
-                flex-wrap: wrap; /* Memungkinkan menu turun baris */
+                flex-wrap: wrap; 
             }
             
             nav ul li {
-                margin: 5px 10px; /* Jarak sentuh yang lebih baik */
+                margin: 5px 8px; /* Jarak sentuh yang lebih baik, lebih rapat */
+            }
+            
+            /* Pastikan tombol Navigasi cukup besar untuk disentuh */
+            nav ul li a {
+                padding: 8px 10px;
+                font-size: 0.9rem;
             }
 
             #mode-toggle {
-                margin-top: 10px;
-                width: 80%; /* Lebar tombol proporsional */
-                max-width: 200px; 
+                margin-top: 15px;
+                width: 70%; /* Lebar tombol proporsional */
+                max-width: 250px; 
             }
 
             /* # Perbaikan Hero dan Banner */
             .image-banner {
-                height: 250px; /* Tinggi banner lebih pendek */
+                height: 200px; /* Tinggi banner lebih pendek */
                 margin-bottom: 20px;
             }
 
             .hero h2 {
-                font-size: 1.8rem;
+                font-size: 1.5rem; /* Font size lebih kecil */
             }
 
             .hero p {
-                font-size: 1rem;
-                padding: 0 10px;
+                font-size: 0.9rem;
+                padding: 0 5px;
+                margin-bottom: 15px;
             }
 
             .btn {
                 padding: 10px 20px;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .section-tujuan h2, .materi-page h2, .video-page h2 {
+                font-size: 1.8rem; /* Judul Halaman disamakan */
+                margin-bottom: 25px;
+            }
+            
+            .tujuan-placeholder {
+                 padding: 15px;
+                 min-height: 80px;
+                 font-size: 0.9rem;
             }
 
-            /* # Perbaikan Cards Materi */
+            /* # Perbaikan Cards Materi (Tumpuk Vertikal) */
             .cards-container-preview {
                 flex-direction: column;
                 gap: 20px; 
+                padding: 0 10px 40px; /* Tambahkan padding samping */
             }
             
             .card {
-                min-width: 90%; /* Card mengambil hampir seluruh lebar */
+                min-width: 100%; /* Card mengambil seluruh lebar container */
+                padding: 20px;
+                text-align: left; /* Teks Card lebih baik rata kiri di mobile */
+            }
+            
+            .card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .card .icon-wrapper {
+                float: left; /* Pindahkan ikon ke kiri */
+                margin-right: 15px;
+                margin-bottom: 0;
             }
             
             .card p {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+            }
+
+            /* # Perbaikan Materi Detail */
+            .materi-detail {
+                padding: 20px;
             }
             
+            .materi-detail h3 {
+                font-size: 1.4rem;
+            }
+
             /* # Perbaikan Video */
             .video-wrapper {
-                width: 95%; /* Lebar wrapper video menyesuaikan */
+                width: 95%; 
                 margin: 0 auto 20px;
                 padding-bottom: 60%; /* Rasio 4:3 untuk layar kecil */
             }
-
-            /* # Perbaikan Modal dan Chat */
-            .modal-content {
-                width: 95%;
-                padding: 20px;
-            }
-            .chat-modal {
-                width: 90%;
-                right: 5%;
-                bottom: 90px;
-                height: 70%;
+            
+            .video-wrapper p {
+                font-size: 1rem;
             }
             
+            /* # Perbaikan Chat Modal */
+            .chat-modal {
+                width: 95%;
+                right: 2.5%;
+                bottom: 80px; /* Jauhkan sedikit dari tombol chat */
+                height: 75%; /* Lebih tinggi di mobile */
+            }
+
+            #ai-chat-button {
+                bottom: 20px;
+                right: 20px;
+            }
+
             /* # Perbaikan Footer */
+            footer {
+                padding: 20px 0;
+            }
+
             footer p {
-                width: 100%;
+                font-size: 0.8rem;
                 padding: 0 10px;
             }
         }
@@ -835,10 +893,9 @@
                     <section class="section-tujuan">
                         <h2>Tujuan Pembuatan Website</h2>
                         <div class="tujuan-placeholder">
-                            <p style="color:var(--color-text-dark);">Tujuan kami membuat website tentang limbah di SMPN 9 Semarang adalah untuk <b>meningkatkan kesadaran seluruh warga sekolah mengenai betapa pentingnya mengelola sampah dalam bentuk apa pun agar tidak menimbulkan dampak negatif bagi lingkungan.</b> Melalui website ini, kami ingin <b>memberikan informasi yang edukatif dan interaktif tentang berbagai jenis limbah, cara pengelolaannya yang benar, serta dampak yang ditimbulkan jika sampah tidak ditangani dengan baik.</b></p>
-                            <br>
-                            <p style="color:var(--color-text-dark);">Selain itu, website ini juga bertujuan untuk <b>mengontrol dan memantau jumlah serta jenis sampah yang dihasilkan di lingkungan sekolah, sehingga kami dapat menemukan solusi yang tepat berdasarkan data-data yang telah kami kumpulkan.</b> Dengan adanya website ini, diharapkan seluruh siswa, guru, dan warga sekolah dapat lebih peduli terhadap kebersihan dan kelestarian lingkungan, serta ikut berpartisipasi aktif dalam menciptakan lingkungan sekolah yang bersih, dan sehat.</p>
-                        </div
+                            <p style="color:var(--color-text-dark);">**AREA KOSONG INI** disiapkan untuk Anda tambahkan teks mengenai Tujuan Pembuatan Website.</p>
+                            <p style="color:var(--color-text-dark);">Anda bisa mengedit file ini dan menempatkan paragraf-paragraf teks Anda di sini.</p>
+                        </div>
                     </section>
 
                     <section class="home-cards-preview">
@@ -846,23 +903,26 @@
                         <div class="cards-container-preview">
                             <div class="card" data-target="pilah">
                                 <span class="icon-wrapper">${materiDatabase.pilah.icon}</span>
-                                <h3>${materiDatabase.pilah.title}</h3>
-                                <p>Kenali jenis-jenis sampah dan cara memilahnya dengan benar.</p>
-                                <p>(Klik untuk selengkapnya)</p>
+                                <div>
+                                    <h3>${materiDatabase.pilah.title}</h3>
+                                    <p>Kenali jenis-jenis sampah dan cara memilahnya dengan benar. **(Klik untuk selengkapnya)**</p>
+                                </div>
                             </div>
                             
                             <div class="card" data-target="tabung">
                                 <span class="icon-wrapper">${materiDatabase.tabung.icon}</span>
-                                <h3>${materiDatabase.tabung.title}</h3>
-                                <p>Langkah mudah menukarkan sampah terpilah Anda menjadi uang atau poin.</p>
-                                <p>(Klik untuk selengkapnya)</p>
+                                <div>
+                                    <h3>${materiDatabase.tabung.title}</h3>
+                                    <p>Langkah mudah menukarkan sampah terpilah Anda menjadi uang atau poin. **(Klik untuk selengkapnya)**</p>
+                                </div>
                             </div>
                             
                             <div class="card" data-target="manfaat">
                                 <span class="icon-wrapper">${materiDatabase.manfaat.icon}</span>
-                                <h3>${materiDatabase.manfaat.title}</h3>
-                                <p>Dampak positif Bank Sampah terhadap lingkungan dan ekonomi.</p>
-                                <p>(Klik untuk selengkapnya)</p>
+                                <div>
+                                    <h3>${materiDatabase.manfaat.title}</h3>
+                                    <p>Dampak positif Bank Sampah terhadap lingkungan dan ekonomi. **(Klik untuk selengkapnya)**</p>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -896,14 +956,20 @@
             const renderVideoPage = () => {
                 mainContent.innerHTML = `
                     <section class="video-page">
-                        <h2>Video Edukasi & Inspirasi Bank Sampah</h2>
+                        <h2>Video Edukasi & Inspirasi</h2>
                         
-                        <div style="text-align: center">
-                         <video width="1024" height="576" controls>
-                            <source src="Video Bank Sampah.mp4 ">
-                         </video>
+                        <div class="video-wrapper">
+                            <!-- Tempatkan kode embed video YouTube atau tag <video> Anda di sini -->
+                            <p>AREA KOSONG UNTUK VIDEO ANDA</p>
+                            <!-- Contoh Placeholder Video -->
+                            <!--
+                            <video width="100%" height="100%" controls>
+                                <source src="Video Bank Sampah.mp4" type="video/mp4">
+                                Browser Anda tidak mendukung tag video.
+                            </video>
+                            -->
                         </div>
-                        <p style="margin-top: 15px;">Tonton video inspiratif ini untuk melihat bagaimana Bank Sampah bekerja dan dampak nyata yang diberikannya!</p>
+                        <p style="margin-top: 15px;">Silakan ganti placeholder di atas dengan video edukasi yang Anda inginkan!</p>
                     </section>
                 `;
             };
