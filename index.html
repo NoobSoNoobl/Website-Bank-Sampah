@@ -9,7 +9,7 @@
     
     <style>
         /* =================================
-            1. SKEMA WARNA LEBIH CERIA & PROFESIONAL (# Untuk Warna)
+            1. SKEMA WARNA & GLOBAL STYLES
             ================================= */
         :root {
             --color-primary: #1E88E5; /* Biru Cerah */
@@ -23,16 +23,16 @@
 
         /* Mode Gelap */
         .dark-mode {
-            --color-primary: #0D47A1; /* Biru Gelap */
-            --color-secondary: #66BB6A; /* Hijau Terang */
-            --color-accent: #FFC107; /* Kuning */
+            --color-primary: #0D47A1; 
+            --color-secondary: #66BB6A; 
+            --color-accent: #FFC107; 
             --color-text-dark: #E0F7FA;
-            --color-bg-light: #121212; /* Abu Super Gelap */
-            --color-bg-card-light: #1E1E1E; /* Abu Gelap untuk Card */
+            --color-bg-light: #121212; 
+            --color-bg-card-light: #1E1E1E; 
             --color-text-on-primary: #FFFFFF;
         }
 
-        /* Global Reset & Base Styles */
+        /* Reset dan Dasar */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -63,7 +63,7 @@
             color: var(--color-secondary);
         }
 
-        /* Header */
+        /* Header (Sticky) */
         header {
             background-color: var(--color-primary);
             color: var(--color-text-on-primary);
@@ -93,16 +93,18 @@
         nav ul li {
             margin-left: 25px;
         }
-
+        
+        /* Navigasi Link Style */
         nav ul li a {
             color: var(--color-text-on-primary);
             font-weight: 600;
             padding: 8px 15px;
             border-radius: 8px;
             transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
         }
 
-        nav ul li a:hover {
+        nav ul li a:hover, nav ul li a.active {
             background-color: var(--color-accent);
             color: var(--color-text-dark);
         }
@@ -126,16 +128,21 @@
         }
 
         /* =================================
-            2. GAMBAR DI BAWAH HEADER & HERO OVERLAY (Perbaikan Ukuran)
+            2. BAGIAN UTAMA / DINAMIS (MAIN CONTENT)
             ================================= */
+        #main-content {
+            min-height: 70vh; /* Agar footer di bawah */
+        }
+
+        /* Hero Section - Home Page */
         .image-banner {
             width: 100%;
             height: 350px; 
             position: relative;
-            margin-bottom: 0; 
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 40px;
         }
 
         .image-banner img {
@@ -147,7 +154,6 @@
             z-index: 1; 
         }
 
-        /* Hero Section - Overlay di atas gambar */
         .hero {
             position: relative;
             z-index: 2;
@@ -169,11 +175,6 @@
             margin-bottom: 20px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
             font-weight: 600;
-        }
-        
-        /* Konten utama setelah banner */
-        main.container {
-            padding: 40px 0;
         }
         
         .btn {
@@ -199,41 +200,50 @@
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
         
-        /* =================================
-            3. MATERI CARD & MODAL
-            ================================= */
-        .material-bar {
+        /* Bagian Tujuan (Area Kosong) */
+        .section-tujuan {
             padding: 40px 0;
-        }
-
-        .material-bar h2 {
             text-align: center;
+            background-color: var(--color-bg-card-light);
+            border-radius: 10px;
             margin-bottom: 40px;
-            color: var(--color-primary);
-            font-size: 2rem;
-            font-weight: 700;
-            position: relative;
-        }
-        
-        .material-bar h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--color-secondary);
-            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .cards-container {
+        .section-tujuan h2 {
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .tujuan-placeholder {
+            min-height: 100px;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+            border-radius: 8px;
+            margin: 0 auto;
+            max-width: 800px;
+            text-align: justify;
+        }
+
+        /* Card Preview Home */
+        .home-cards-preview h2 {
+            text-align: center;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+
+        .cards-container-preview {
             display: flex;
             gap: 30px; 
             flex-wrap: wrap;
             justify-content: center;
+            padding-bottom: 40px;
         }
 
+        /* Card Style */
         .card {
             background-color: var(--color-bg-card-light);
             padding: 30px;
@@ -267,11 +277,134 @@
             font-size: 1.5rem;
         }
         
-        .card p {
-            color: var(--color-text-dark);
+        /* =================================
+            3. HALAMAN MATERI (FULL)
+            ================================= */
+        .materi-page {
+            padding: 40px 0;
+        }
+
+        .materi-page h2 {
+            color: var(--color-primary);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .materi-detail {
+            background-color: var(--color-bg-card-light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--color-secondary);
+        }
+
+        .materi-detail h3 {
+            color: var(--color-secondary);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 5px;
+        }
+
+        .materi-detail h4 {
+            color: var(--color-primary);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .materi-detail ul, .materi-detail ol {
+            margin-left: 20px;
+            padding-bottom: 15px;
         }
         
-        /* Modal Pop-up Styles */
+        /* =================================
+            4. HALAMAN VIDEO
+            ================================= */
+        .video-page {
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .video-page h2 {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Rasio 16:9 */
+            height: 0;
+            margin: 0 auto 30px;
+            max-width: 800px; /* Batasan lebar */
+            background-color: var(--color-text-dark); /* Placeholder warna gelap */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-wrapper p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+
+        /* Jika menggunakan iframe/video, style ini berlaku */
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            border: none;
+        }
+
+        /* =================================
+            5. FOOTER (Kontak selalu ada)
+            ================================= */
+        footer {
+            background-color: var(--color-text-dark);
+            color: #969595;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: var(--color-accent);
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: var(--color-secondary);
+        }
+
+        /* =================================
+            6. MODAL & CHAT AI (Tetap Ada)
+            ================================= */
+        /* Modal Pop-up Styles (untuk konten materi) */
         .modal-overlay {
             display: none; 
             position: fixed;
@@ -331,67 +464,8 @@
             margin-bottom: 15px;
             text-align: justify;
         }
-        
-        /* Video Section */
-        .video-section {
-            padding: 60px 0;
-            text-align: center;
-            margin-top: 20px;
-        }
 
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Rasio 16:9 */
-            height: 0;
-            margin: 0 auto 20px;
-            max-width: 800px; /* Batasan lebar */
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* =================================
-            5. PERBAIKAN FOOTER
-            ================================= */
-        footer {
-            background-color: var(--color-text-dark);
-            color: #969595;
-            padding: 30px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-
-        footer .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        footer p {
-            margin: 5px 0;
-        }
-
-        footer a {
-            color: var(--color-accent);
-        }
-
-        footer a:hover {
-            color: var(--color-secondary);
-        }
-
-        /* =================================
-            6. CHAT AI BUTTON (Fixed Position & Interaktif)
-            ================================= */
+        /* Chat AI Button & Modal */
         #ai-chat-button {
             position: fixed;
             bottom: 30px;
@@ -418,7 +492,6 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Chat Modal (Menyesuaikan dengan posisi tombol) */
         .chat-modal {
             position: fixed;
             bottom: 100px; 
@@ -558,6 +631,7 @@
             /* # Perbaikan Hero dan Banner */
             .image-banner {
                 height: 250px; /* Tinggi banner lebih pendek */
+                margin-bottom: 20px;
             }
 
             .hero h2 {
@@ -575,7 +649,7 @@
             }
 
             /* # Perbaikan Cards Materi */
-            .cards-container {
+            .cards-container-preview {
                 flex-direction: column;
                 gap: 20px; 
             }
@@ -592,10 +666,7 @@
             .video-wrapper {
                 width: 95%; /* Lebar wrapper video menyesuaikan */
                 margin: 0 auto 20px;
-            }
-            .video-section video {
-                width: 100%; /* Membuat video element responsif */
-                height: auto;
+                padding-bottom: 60%; /* Rasio 4:3 untuk layar kecil */
             }
 
             /* # Perbaikan Modal dan Chat */
@@ -611,17 +682,9 @@
             }
             
             /* # Perbaikan Footer */
-            footer .container {
-                align-items: center;
-            }
             footer p {
                 width: 100%;
                 padding: 0 10px;
-                margin-bottom: 10px;
-            }
-            footer p#kontak a {
-                display: block; /* Tautan kontak ditampilkan per baris */
-                margin-bottom: 5px;
             }
         }
     </style>
@@ -633,83 +696,40 @@
             <h1>Bank Sampah Ceria 🌳</h1>
             <nav>
                 <ul>
-                    <li><a href="#beranda">Beranda</a></li>
-                    <li><a href="#materi">Materi</a></li>
-                    <li><a href="#video">Video</a></li>
-                    <li><a href="#kontak">Kontak</a></li>
+                    <li><a id="nav-beranda" data-page="beranda" class="active">Beranda</a></li>
+                    <li><a id="nav-materi" data-page="materi">Materi</a></li>
+                    <li><a id="nav-video" data-page="video">Video</a></li>
                 </ul>
             </nav>
             <button id="mode-toggle">☀ Mode Terang</button>
         </div>
     </header>
 
-    <div class="image-banner">
-        <img src="https://awsimages.detik.net.id/community/media/visual/2023/01/03/aksi-pandawara-dengan-membuat-konten-bersih-bersih-sungai-banyak-mendapat-apresiasi-dari-berbagai-kalangan-1_169.jpeg?w=1200" alt="Lingkungan Penuh Sampah dan Gotong Royong Membersihkan">
-        
-        <section id="beranda" class="hero container">
-            <h2>Selamat Datang di Portal Bank Sampah Ceria!</h2>
-            <p>Bersama kita wujudkan lingkungan yang bersih dan lestari. Mulai dari pilah sampah, tabung, dan dapatkan manfaatnya!</p>
-            <a href="#materi" class="btn primary">Pelajari Lebih Lanjut</a>
-        </section>
+    <!-- Konten Dinamis akan Dimuat di Sini -->
+    <div id="main-content" class="container">
+        <!-- Konten Beranda Awal -->
     </div>
-
-    <main class="container">
-        <section id="materi" class="material-bar">
-            <h2>Materi Bank Sampah Pilihan</h2>
-            <div class="cards-container">
-                <div class="card" data-target="pilah">
-                    <span class="icon-wrapper"><i class="fas fa-recycle"></i></span>
-                    <h3>Memilah Sampah</h3>
-                    <p>Kenali jenis-jenis sampah dan cara memilahnya dengan benar. **(Klik untuk selengkapnya)**</p>
-                </div>
-                
-                <div class="card" data-target="tabung">
-                    <span class="icon-wrapper"><i class="fas fa-hand-holding-usd"></i></span>
-                    <h3>Cara Menabung</h3>
-                    <p>Langkah mudah menukarkan sampah terpilah Anda menjadi uang atau poin. **(Klik untuk selengkapnya)**</p>
-                </div>
-                
-                <div class="card" data-target="manfaat">
-                    <span class="icon-wrapper"><i class="fas fa-leaf"></i></span>
-                    <h3>Manfaat Lingkungan</h3>
-                    <p>Dampak positif Bank Sampah terhadap lingkungan dan ekonomi. **(Klik untuk selengkapnya)**</p>
-                </div>
-            </div>
-        </section>
-
-        <hr>
-        
-        <section id="video" class="video-section">
-            <h2>Video Edukasi & Inspirasi Bank Sampah</h2>
-            <div style="text-align: center">
-              <video width="1024" height="576" controls>
-                <source src="Video Bank Sampah.mp4 ">
-              </video>
-            </div>
-            <p style="margin-top: 15px;">Tonton video inspiratif ini untuk melihat bagaimana Bank Sampah bekerja dan dampak nyata yang diberikannya!</p>
-        </section>
-
-    </main>
 
     <footer>
         <div class="container">
-            <p id="kontak">Hubungi Kami: 
-                <a href="mailto:info@banksampahceria.com"><i class="fas fa-envelope"></i> info@banksampahceria.com</a> | 
+            <p>Kontak Kami: 
+                <a href="mailto:info@banksampahceria.com"><i class="fas fa-envelope"></i> info@banksampahceria.com</a> 
                 <a href="tel:021123456"><i class="fas fa-phone"></i> (021) 123456</a>
             </p>
             <p>&copy; 2025 Bank Sampah Ceria. Kelola Sampah, Jaga Alam. 🌎</p>
         </div>
     </footer>
 
+    <!-- Modal Pop-up untuk detail materi (jika diperlukan) -->
     <div id="materi-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <h3 id="modal-title">Judul Materi</h3>
-            <div id="modal-body">
-                </div>
+            <h3 id="modal-title"></h3>
+            <div id="modal-body"></div>
         </div>
     </div>
 
+    <!-- Chat AI Button & Modal (Tetap fungsional) -->
     <button id="ai-chat-button" title="Tanya Asisten AI">
         <i class="fas fa-robot"></i>
     </button>
@@ -732,7 +752,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             const modeToggle = document.getElementById('mode-toggle');
             const body = document.body;
-            
+            const mainContent = document.getElementById('main-content');
+            const navLinks = document.querySelectorAll('nav ul li a');
+
             // Chat AI Elements
             const chatButton = document.getElementById('ai-chat-button');
             const chatModal = document.getElementById('chat-modal');
@@ -741,8 +763,7 @@
             const chatInputField = document.getElementById('chat-input-field');
             const sendChatBtn = document.getElementById('send-chat-btn');
             
-            // Modal Materi Elements
-            const cards = document.querySelectorAll('.card');
+            // Modal Materi Elements (dipertahankan untuk fungsionalitas)
             const materiModal = document.getElementById('materi-modal');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-body');
@@ -752,6 +773,7 @@
             const materiDatabase = {
                 pilah: {
                     title: "Panduan Lengkap Memilah Sampah",
+                    icon: '<i class="fas fa-recycle"></i>',
                     content: `
                         <p>Memilah sampah adalah langkah pertama dan terpenting dalam pengelolaan sampah yang berkelanjutan. Pemilahan yang tepat meningkatkan nilai daur ulang.</p>
                         <h4>Jenis-Jenis Utama Sampah:</h4>
@@ -765,6 +787,7 @@
                 },
                 tabung: {
                     title: "Langkah-Langkah Praktis Cara Menabung Sampah",
+                    icon: '<i class="fas fa-hand-holding-usd"></i>',
                     content: `
                         <p>Menabung sampah di Bank Sampah Ceria itu mudah dan menguntungkan. Berikut adalah langkah-langkahnya:</p>
                         <ol>
@@ -779,6 +802,7 @@
                 },
                 manfaat: {
                     title: "Dampak Positif Bank Sampah bagi Lingkungan dan Ekonomi",
+                    icon: '<i class="fas fa-leaf"></i>',
                     content: `
                         <p>Partisipasi Anda dalam Bank Sampah memberikan manfaat berlipat ganda bagi lingkungan, komunitas, dan diri Anda sendiri.</p>
                         <h4>Manfaat Utama:</h4>
@@ -793,8 +817,153 @@
                     `
                 }
             };
+            
+            // --- Logika Halaman (SPA) ---
 
-            // --- Fungsi Mode Terang/Gelap ---
+            // 1. Render Halaman Beranda
+            const renderHomePage = () => {
+                mainContent.innerHTML = `
+                    <section class="image-banner">
+                        <img src="https://awsimages.detik.net.id/community/media/visual/2023/01/03/aksi-pandawara-dengan-membuat-konten-bersih-bersih-sungai-banyak-mendapat-apresiasi-dari-berbagai-kalangan-1_169.jpeg?w=1200" alt="Gotong Royong Membersihkan Sampah">
+                        <div class="hero">
+                            <h2>Selamat Datang di Portal Bank Sampah Ceria!</h2>
+                            <p>Bersama kita wujudkan lingkungan yang bersih dan lestari. Mulai dari pilah sampah, tabung, dan dapatkan manfaatnya!</p>
+                            <a data-page="materi" class="btn primary nav-link-custom">Pelajari Lebih Lanjut</a>
+                        </div>
+                    </section>
+                    
+                    <section class="section-tujuan">
+                        <h2>Tujuan Pembuatan Website</h2>
+                        <div class="tujuan-placeholder">
+                            <p style="color:var(--color-text-dark);">Tujuan kami membuat website tentang limbah di SMPN 9 Semarang adalah untuk <b>meningkatkan kesadaran seluruh warga sekolah mengenai betapa pentingnya mengelola sampah dalam bentuk apa pun agar tidak menimbulkan dampak negatif bagi lingkungan.</b> Melalui website ini, kami ingin <b>memberikan informasi yang edukatif dan interaktif tentang berbagai jenis limbah, cara pengelolaannya yang benar, serta dampak yang ditimbulkan jika sampah tidak ditangani dengan baik.</b></p>
+                            <br>
+                            <p style="color:var(--color-text-dark);">Selain itu, website ini juga bertujuan untuk <b>mengontrol dan memantau jumlah serta jenis sampah yang dihasilkan di lingkungan sekolah, sehingga kami dapat menemukan solusi yang tepat berdasarkan data-data yang telah kami kumpulkan.</b> Dengan adanya website ini, diharapkan seluruh siswa, guru, dan warga sekolah dapat lebih peduli terhadap kebersihan dan kelestarian lingkungan, serta ikut berpartisipasi aktif dalam menciptakan lingkungan sekolah yang bersih, dan sehat.</p>
+                        </div
+                    </section>
+
+                    <section class="home-cards-preview">
+                        <h2>Materi Pilihan Kami</h2>
+                        <div class="cards-container-preview">
+                            <div class="card" data-target="pilah">
+                                <span class="icon-wrapper">${materiDatabase.pilah.icon}</span>
+                                <h3>${materiDatabase.pilah.title}</h3>
+                                <p>Kenali jenis-jenis sampah dan cara memilahnya dengan benar.</p>
+                                <p>(Klik untuk selengkapnya)</p>
+                            </div>
+                            
+                            <div class="card" data-target="tabung">
+                                <span class="icon-wrapper">${materiDatabase.tabung.icon}</span>
+                                <h3>${materiDatabase.tabung.title}</h3>
+                                <p>Langkah mudah menukarkan sampah terpilah Anda menjadi uang atau poin.</p>
+                                <p>(Klik untuk selengkapnya)</p>
+                            </div>
+                            
+                            <div class="card" data-target="manfaat">
+                                <span class="icon-wrapper">${materiDatabase.manfaat.icon}</span>
+                                <h3>${materiDatabase.manfaat.title}</h3>
+                                <p>Dampak positif Bank Sampah terhadap lingkungan dan ekonomi.</p>
+                                <p>(Klik untuk selengkapnya)</p>
+                            </div>
+                        </div>
+                    </section>
+                `;
+                addCardListeners();
+                addCustomNavListeners();
+            };
+
+            // 2. Render Halaman Materi
+            const renderMateriPage = () => {
+                mainContent.innerHTML = `
+                    <section class="materi-page">
+                        <h2>Semua Materi Bank Sampah</h2>
+                        <div class="materi-detail">
+                            <h3>${materiDatabase.pilah.title}</h3>
+                            ${materiDatabase.pilah.content}
+                        </div>
+                        <div class="materi-detail">
+                            <h3>${materiDatabase.tabung.title}</h3>
+                            ${materiDatabase.tabung.content}
+                        </div>
+                        <div class="materi-detail">
+                            <h3>${materiDatabase.manfaat.title}</h3>
+                            ${materiDatabase.manfaat.content}
+                        </div>
+                    </section>
+                `;
+            };
+
+            // 3. Render Halaman Video
+            const renderVideoPage = () => {
+                mainContent.innerHTML = `
+                    <section class="video-page">
+                        <h2>Video Edukasi & Inspirasi Bank Sampah</h2>
+                        
+                        <div style="text-align: center">
+                         <video width="1024" height="576" controls>
+                            <source src="Video Bank Sampah.mp4 ">
+                         </video>
+                        </div>
+                        <p style="margin-top: 15px;">Tonton video inspiratif ini untuk melihat bagaimana Bank Sampah bekerja dan dampak nyata yang diberikannya!</p>
+                    </section>
+                `;
+            };
+
+            // 4. Fungsi Navigasi Utama
+            const navigateTo = (page) => {
+                // Hapus class 'active' dari semua link
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                // Tambahkan class 'active' ke link yang sesuai
+                const activeLink = document.querySelector(`[data-page="${page}"]`);
+                if (activeLink) activeLink.classList.add('active');
+
+                // Render konten berdasarkan halaman
+                switch (page) {
+                    case 'materi':
+                        renderMateriPage();
+                        break;
+                    case 'video':
+                        renderVideoPage();
+                        break;
+                    case 'beranda':
+                    default:
+                        renderHomePage();
+                        break;
+                }
+                window.scrollTo(0, 0); // Gulir ke atas halaman baru
+            };
+            
+            // 5. Listener Navigasi
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const page = e.target.getAttribute('data-page');
+                    navigateTo(page);
+                });
+            });
+
+            // 6. Listener Navigasi Kustom (dari tombol Hero)
+            const addCustomNavListeners = () => {
+                document.querySelectorAll('.nav-link-custom').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const page = e.target.getAttribute('data-page');
+                        navigateTo(page);
+                    });
+                });
+            };
+
+            // 7. Listener Card (Diperlukan di halaman Home)
+            const addCardListeners = () => {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        // Alihkan ke halaman materi penuh
+                        navigateTo('materi');
+                    });
+                });
+            };
+
+            // --- Fungsi Mode Terang/Gelap (dipertahankan) ---
             const setMode = (mode) => {
                 if (mode === 'dark') {
                     body.classList.add('dark-mode');
@@ -824,61 +993,6 @@
                 }
             });
 
-            // --- Smooth Scrolling ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // --- Logika Modal Materi Pop-up ---
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const targetKey = card.getAttribute('data-target');
-                    const materi = materiDatabase[targetKey];
-
-                    if (materi) {
-                        modalTitle.textContent = materi.title;
-                        modalBody.innerHTML = materi.content;
-                        materiModal.style.display = 'flex';
-                        setTimeout(() => materiModal.classList.add('active'), 10);
-                        body.style.overflow = 'hidden';
-                    }
-                });
-            });
-
-            const closeModal = () => {
-                materiModal.classList.remove('active');
-                setTimeout(() => {
-                    materiModal.style.display = 'none';
-                    body.style.overflow = 'auto'; 
-                }, 300);
-            };
-
-            modalClose.addEventListener('click', closeModal);
-
-            materiModal.addEventListener('click', (e) => {
-                if (e.target === materiModal) {
-                    closeModal();
-                }
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && materiModal.style.display === 'flex') {
-                    closeModal();
-                }
-            });
-
-            // --- Logika Video Play (Membutuhkan perubahan untuk bekerja dengan video local/YouTube) ---
-            const videoContainer = document.querySelector('.video-section div');
-            // Catatan: Karena menggunakan tag <video> dan file lokal, logika ini tidak diperlukan. 
-            // Jika ingin menggunakan YouTube, ganti tag <video> di HTML dengan <div> dan masukkan logika iframe di sini.
-
-
             // --- Logika Chat AI (Simulasi) ---
             const addMessage = (text, sender) => {
                 const messageDiv = document.createElement('div');
@@ -889,18 +1003,17 @@
             };
 
             const simulateAIResponse = (userMessage) => {
-                let response = "Maaf, saya hanya Asisten simulasi. Silakan cari informasi lebih lanjut di bagian 'Materi Bank Sampah' atau 'Video Edukasi' kami.";
+                let response = "Maaf, saya hanya Asisten simulasi. Silakan lihat informasi lengkap di bagian 'Materi' atau 'Video' kami.";
                 const lowerCaseMsg = userMessage.toLowerCase();
 
                 if (lowerCaseMsg.includes("sampah")) {
-                    response = "Bank Sampah Ceria menerima sampah anorganik terpilah seperti plastik, kertas, dan logam. Apakah Anda ingin tahu cara memilahnya?";
+                    response = "Bank Sampah Ceria menerima sampah anorganik terpilah seperti plastik, kertas, dan logam. Cek halaman Materi untuk info lengkap!";
                 } else if (lowerCaseMsg.includes("menabung")) {
-                    response = "Untuk menabung, pisahkan sampah Anda, bawa ke lokasi Bank Sampah terdekat, dan petugas kami akan menimbangnya. Anda akan menerima catatan tabungan berupa uang atau poin.";
+                    response = "Untuk menabung, pisahkan sampah Anda, bawa ke lokasi Bank Sampah terdekat, dan petugas kami akan menimbangnya.";
                 } else if (lowerCaseMsg.includes("terima kasih")) {
                     response = "Sama-sama! Senang bisa membantu Anda menjaga lingkungan. Mari bersama wujudkan Indonesia bersih! 🌿";
                 }
 
-                // Tambahkan delay untuk simulasi loading respons
                 setTimeout(() => {
                     addMessage(response, 'ai');
                 }, 1000);
@@ -933,6 +1046,9 @@
                     sendMessage();
                 }
             });
+            
+            // --- Inisialisasi: Muat Halaman Beranda saat pertama kali dibuka ---
+            navigateTo('beranda'); 
         });
     </script>
 </body>
