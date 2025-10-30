@@ -9,7 +9,7 @@
     
     <style>
         /* =================================
-            1. SKEMA WARNA LEBIH CERIA & PROFESIONAL
+            1. SKEMA WARNA LEBIH CERIA & PROFESIONAL (# Untuk Warna)
             ================================= */
         :root {
             --color-primary: #1E88E5; /* Biru Cerah */
@@ -363,20 +363,12 @@
             ================================= */
         footer {
             background-color: var(--color-text-dark);
-            color: #000000;
-            padding: 30px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-        /* footer {
-            background-color: var(--color-text-dark);
             color: #969595;
             padding: 30px 0;
             text-align: center;
             font-size: 0.9rem;
             margin-top: 40px;
-        } */
+        }
 
         footer .container {
             display: flex;
@@ -531,22 +523,82 @@
             align-self: flex-start;
         }
         
-        /* Responsiveness for smaller screens */
+        /* =================================
+            7. RESPONSIVENESS (PERBAIKAN TAMPILAN HANDPHONE)
+            ================================= */
         @media (max-width: 768px) {
+            /* # Perbaikan Header dan Navigasi */
             header .container {
                 flex-direction: column;
                 text-align: center;
+                padding: 10px 0; 
             }
+            
+            header h1 {
+                font-size: 1.8rem; /* Ukuran judul lebih kecil */
+                margin-bottom: 10px; 
+            }
+
             nav ul {
                 padding: 10px 0;
                 justify-content: center;
+                flex-wrap: wrap; /* Memungkinkan menu turun baris */
             }
+            
             nav ul li {
-                margin: 0 10px;
+                margin: 5px 10px; /* Jarak sentuh yang lebih baik */
             }
+
+            #mode-toggle {
+                margin-top: 10px;
+                width: 80%; /* Lebar tombol proporsional */
+                max-width: 200px; 
+            }
+
+            /* # Perbaikan Hero dan Banner */
+            .image-banner {
+                height: 250px; /* Tinggi banner lebih pendek */
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* # Perbaikan Cards Materi */
             .cards-container {
                 flex-direction: column;
+                gap: 20px; 
             }
+            
+            .card {
+                min-width: 90%; /* Card mengambil hampir seluruh lebar */
+            }
+            
+            .card p {
+                font-size: 0.95rem;
+            }
+            
+            /* # Perbaikan Video */
+            .video-wrapper {
+                width: 95%; /* Lebar wrapper video menyesuaikan */
+                margin: 0 auto 20px;
+            }
+            .video-section video {
+                width: 100%; /* Membuat video element responsif */
+                height: auto;
+            }
+
+            /* # Perbaikan Modal dan Chat */
             .modal-content {
                 width: 95%;
                 padding: 20px;
@@ -557,11 +609,19 @@
                 bottom: 90px;
                 height: 70%;
             }
-            .video-wrapper {
-                width: 95%;
+            
+            /* # Perbaikan Footer */
+            footer .container {
+                align-items: center;
             }
-            #mode-toggle {
-                margin-top: 10px;
+            footer p {
+                width: 100%;
+                padding: 0 10px;
+                margin-bottom: 10px;
+            }
+            footer p#kontak a {
+                display: block; /* Tautan kontak ditampilkan per baris */
+                margin-bottom: 5px;
             }
         }
     </style>
@@ -813,26 +873,10 @@
                 }
             });
 
-            // --- Logika Video Play (Thumbnail klik untuk ganti ke iframe) ---
-            const videoContainer = document.getElementById('video-container');
-            const videoThumbnail = document.getElementById('video-thumbnail');
-            // Video ID: Wf09pV7x-OU
-            const videoId = videoThumbnail.src.split('/').pop().replace('.jpg', '').replace('maxresdefault', '').replace('0', ''); 
-
-            const createIframe = () => {
-                const iframe = document.createElement('iframe');
-                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                iframe.setAttribute('allowfullscreen', '');
-                
-                videoContainer.innerHTML = '';
-                videoContainer.appendChild(iframe);
-            };
-
-            if (videoThumbnail) {
-                videoThumbnail.addEventListener('click', createIframe);
-            }
+            // --- Logika Video Play (Membutuhkan perubahan untuk bekerja dengan video local/YouTube) ---
+            const videoContainer = document.querySelector('.video-section div');
+            // Catatan: Karena menggunakan tag <video> dan file lokal, logika ini tidak diperlukan. 
+            // Jika ingin menggunakan YouTube, ganti tag <video> di HTML dengan <div> dan masukkan logika iframe di sini.
 
 
             // --- Logika Chat AI (Simulasi) ---
