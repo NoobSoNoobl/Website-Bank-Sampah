@@ -83,19 +83,35 @@
         header h1 {
             font-size: 2rem;
             font-weight: 700;
+            /* Default: Text center, tapi di mobile diubah */
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        /* TOMBOL HAMBURGER (Baru) - Sembunyi di Desktop */
+        #hamburger-btn {
+            display: none; 
+            background: none;
+            border: none;
+            color: var(--color-text-on-primary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.2s;
         }
 
-        nav ul {
+        /* Navigasi Desktop */
+        #desktop-nav ul {
             list-style: none;
             display: flex;
         }
 
-        nav ul li {
+        #desktop-nav ul li {
             margin-left: 25px;
         }
         
         /* Navigasi Link Style */
-        nav ul li a {
+        #desktop-nav ul li a {
             color: var(--color-text-on-primary);
             font-weight: 600;
             padding: 8px 15px;
@@ -104,13 +120,13 @@
             cursor: pointer;
         }
 
-        nav ul li a:hover, nav ul li a.active {
+        #desktop-nav ul li a:hover, #desktop-nav ul li a.active {
             background-color: var(--color-accent);
             color: var(--color-text-dark);
         }
 
-        /* Mode Toggle Button */
-        #mode-toggle {
+        /* Mode Toggle Button Desktop */
+        #mode-toggle-desktop {
             background-color: var(--color-accent);
             color: var(--color-text-dark);
             border: none;
@@ -122,11 +138,130 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        #mode-toggle:hover {
+        #mode-toggle-desktop:hover {
             background-color: #FFD700;
             transform: scale(1.05);
         }
+        
+        /* =================================
+            Tambahan: Mobile Sidebar (Navigasi Samping)
+            ================================= */
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1050; /* Di atas header */
+        }
 
+        #mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70%; /* Lebar sidebar */
+            max-width: 300px;
+            height: 100%;
+            background-color: var(--color-bg-card-light);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1060; 
+            transform: translateX(-100%); /* Sembunyi ke kiri */
+            transition: transform 0.3s ease-out;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mobile-sidebar.open {
+            transform: translateX(0); /* Tampilkan */
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        #close-sidebar-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-dark);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        #close-sidebar-btn:hover {
+            color: var(--color-primary);
+        }
+        
+        /* Navigasi dalam Sidebar */
+        #mobile-nav {
+            flex-grow: 1; /* Agar nav memakan ruang */
+        }
+        
+        #mobile-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mobile-nav ul li {
+            margin-bottom: 10px;
+        }
+
+        #mobile-nav ul li a {
+            display: block;
+            color: var(--color-text-dark);
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        #mobile-nav ul li a.active, #mobile-nav ul li a:hover {
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+        }
+        
+        /* Mode Toggle di Sidebar */
+        #mode-toggle-mobile {
+            width: 100%;
+            background-color: var(--color-secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 20px;
+        }
+        
+        #mode-toggle-mobile:hover {
+             background-color: var(--color-primary);
+        }
+        
+        /* Dark Mode adjustments for sidebar */
+        .dark-mode #mobile-sidebar {
+            background-color: var(--color-bg-card-light);
+        }
+        .dark-mode .sidebar-header {
+            border-bottom: 1px solid #333;
+        }
+        
         /* =================================
             2. BAGIAN UTAMA / DINAMIS (MAIN CONTENT)
             ================================= */
@@ -157,7 +292,7 @@
         .hero {
             position: relative;
             z-index: 2;
-            padding: 50px 20px; /* Tambahkan padding horizontal agar tidak terlalu mepet */
+            padding: 50px 20px; 
             text-align: center;
             color: white; 
         }
@@ -358,7 +493,7 @@
         }
 
         /* =================================
-            5. FOOTER (Kontak selalu ada) - TELAH DILAKUKAN PERBAIKAN WARNA TEKS
+            5. FOOTER (Kontak selalu ada)
             ================================= */
         footer {
             /* Background akan gelap di Light Mode (--color-text-dark) */
@@ -594,44 +729,39 @@
 
             /* # Perbaikan Header dan Navigasi */
             header .container {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px 0; 
+                /* Mengubah kembali ke tata letak horizontal untuk logo dan hamburger */
+                display: flex; 
+                flex-direction: row; 
+                justify-content: space-between;
+                align-items: center;
+                /* Tambahkan padding samping agar tombol tidak mepet ke pinggir */
+                padding: 1rem 15px; 
             }
             
+            /* TAMPILKAN DAN POSISIKAN HAMBURGER DI KIRI */
+            #hamburger-btn {
+                display: block; 
+                order: 1; /* Paling kiri */
+                margin-right: 15px; /* Jarak antara hamburger dan judul */
+            }
+            
+            /* POSISIKAN JUDUL DI SEBELAH HAMBURGER */
             header h1 {
                 font-size: 1.5rem; 
-                margin-bottom: 10px; 
-            }
-
-            nav {
-                width: 100%; 
-            }
-
-            nav ul {
-                padding: 10px 0;
-                justify-content: center;
-                flex-wrap: wrap; 
+                margin-bottom: 0; 
+                order: 2; /* Di sebelah kiri, setelah hamburger */
+                flex-grow: 1; /* Memastikan judul mengambil sisa ruang */
+                text-align: left; /* Teks judul rata kiri */
             }
             
-            nav ul li {
-                margin: 5px 8px; 
+            /* Sembunyikan navigasi desktop dan mode toggle desktop */
+            #desktop-nav, #mode-toggle-desktop {
+                display: none;
             }
             
-            nav ul li a {
-                padding: 8px 10px;
-                font-size: 0.9rem;
-            }
-
-            #mode-toggle {
-                margin-top: 15px;
-                width: 70%; 
-                max-width: 250px; 
-            }
-
             /* # Perbaikan Hero dan Banner */
             .image-banner {
-                height: 200px; 
+                height: 250px; 
                 margin-bottom: 20px;
             }
 
@@ -661,7 +791,7 @@
                  font-size: 0.9rem;
             }
 
-            /* # Perbaikan Cards Materi (Tumpuk Vertikal) */
+            /* # Perbaikan Cards Materi */
             .cards-container-preview {
                 flex-direction: column;
                 gap: 20px; 
@@ -733,18 +863,36 @@
 <body class="light-mode">
     <header>
         <div class="container">
+            <button id="hamburger-btn" class="fas fa-bars" aria-label="Buka Menu"></button> 
             <h1>Bank Sampah Ceria 🌳</h1>
-            <nav>
+            
+            <nav id="desktop-nav">
                 <ul>
-                    <li><a id="nav-beranda" data-page="beranda" class="active">Beranda</a></li>
-                    <li><a id="nav-materi" data-page="materi">Materi</a></li>
-                    <li><a id="nav-video" data-page="video">Video</a></li>
+                    <li><a data-page="beranda" class="active">Beranda</a></li>
+                    <li><a data-page="materi">Materi</a></li>
+                    <li><a data-page="video">Video</a></li>
                 </ul>
             </nav>
-            <button id="mode-toggle">☀ Mode Terang</button>
+            <button id="mode-toggle-desktop">☀ Mode Terang</button>
         </div>
     </header>
 
+    <div id="sidebar-overlay"></div>
+    <div id="mobile-sidebar">
+        <div class="sidebar-header">
+            <h2>Menu Utama</h2>
+            <button id="close-sidebar-btn" class="fas fa-times" aria-label="Tutup Menu"></button>
+        </div>
+        <nav id="mobile-nav">
+            <ul>
+                <li><a data-page="beranda" class="active">Beranda</a></li>
+                <li><a data-page="materi">Materi</a></li>
+                <li><a data-page="video">Video</a></li>
+            </ul>
+        </nav>
+        <button id="mode-toggle-mobile">☀ Mode Terang</button>
+    </div>
+    
     <div id="main-content" class="container">
     </div>
 
@@ -786,11 +934,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const modeToggle = document.getElementById('mode-toggle');
+            // Deklarasi Elemen
             const body = document.body;
             const mainContent = document.getElementById('main-content');
-            const navLinks = document.querySelectorAll('nav ul li a');
+            
+            // Mode Toggle Elements
+            const modeToggleDesktop = document.getElementById('mode-toggle-desktop');
+            const modeToggleMobile = document.getElementById('mode-toggle-mobile');
+            
+            // Desktop Nav Links
+            const desktopNavLinks = document.querySelectorAll('#desktop-nav ul li a');
+            // Mobile Nav Links
+            const mobileNavLinks = document.querySelectorAll('#mobile-nav ul li a');
+            
+            // Sidebar Elements (Baru)
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
 
+            // Nav Links (Gabungan untuk event listener)
+            const allNavLinks = [...desktopNavLinks, ...mobileNavLinks];
+            
             // Chat AI Elements
             const chatButton = document.getElementById('ai-chat-button');
             const chatModal = document.getElementById('chat-modal');
@@ -855,8 +1020,6 @@
             };
             
             // --- Logika Halaman (SPA) ---
-
-            // 1. Render Halaman Beranda
             const renderHomePage = () => {
                 mainContent.innerHTML = `
                     <section class="image-banner">
@@ -913,7 +1076,6 @@
                 addCustomNavListeners();
             };
 
-            // 2. Render Halaman Materi
             const renderMateriPage = () => {
                 mainContent.innerHTML = `
                     <section class="materi-page">
@@ -934,7 +1096,6 @@
                 `;
             };
 
-            // 3. Render Halaman Video
             const renderVideoPage = () => {
                 mainContent.innerHTML = `
                     <section class="video-page">
@@ -951,16 +1112,21 @@
                 `;
             };
 
-            // 4. Fungsi Navigasi Utama
+            const closeSidebar = () => {
+                mobileSidebar.classList.remove('open');
+                sidebarOverlay.style.display = 'none';
+                body.style.overflow = 'auto'; 
+            };
+            
             const navigateTo = (page) => {
-                // Hapus class 'active' dari semua link
-                navLinks.forEach(link => link.classList.remove('active'));
+                closeSidebar();
+                
+                allNavLinks.forEach(link => link.classList.remove('active'));
 
-                // Tambahkan class 'active' ke link yang sesuai
-                const activeLink = document.querySelector(`[data-page="${page}"]`);
-                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll(`[data-page="${page}"]`).forEach(link => {
+                    link.classList.add('active');
+                });
 
-                // Render konten berdasarkan halaman
                 switch (page) {
                     case 'materi':
                         renderMateriPage();
@@ -973,18 +1139,16 @@
                         renderHomePage();
                         break;
                 }
-                window.scrollTo(0, 0); // Gulir ke atas halaman baru
+                window.scrollTo(0, 0);
             };
             
-            // 5. Listener Navigasi
-            navLinks.forEach(link => {
+            allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     const page = e.target.getAttribute('data-page');
                     navigateTo(page);
                 });
             });
 
-            // 6. Listener Navigasi Kustom (dari tombol Hero)
             const addCustomNavListeners = () => {
                 document.querySelectorAll('.nav-link-custom').forEach(link => {
                     link.addEventListener('click', (e) => {
@@ -995,32 +1159,53 @@
                 });
             };
 
-            // 7. Listener Card (Diperlukan di halaman Home)
             const addCardListeners = () => {
                 const cards = document.querySelectorAll('.card');
                 cards.forEach(card => {
                     card.addEventListener('click', () => {
-                        // Alihkan ke halaman materi penuh
                         navigateTo('materi');
                     });
                 });
             };
+            
+            // --- Logika Sidebar ---
+            const openSidebar = () => {
+                mobileSidebar.classList.add('open');
+                sidebarOverlay.style.display = 'block';
+                body.style.overflow = 'hidden';
+            };
 
-            // --- Fungsi Mode Terang/Gelap (dipertahankan) ---
+            hamburgerBtn.addEventListener('click', openSidebar);
+            closeSidebarBtn.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar); 
+
+            // --- Fungsi Mode Terang/Gelap ---
             const setMode = (mode) => {
-                if (mode === 'dark') {
+                const isDark = (mode === 'dark');
+                if (isDark) {
                     body.classList.add('dark-mode');
                     body.classList.remove('light-mode');
-                    modeToggle.innerHTML = '🌙 Mode Gelap';
                     localStorage.setItem('theme', 'dark');
                 } else {
                     body.classList.add('light-mode');
                     body.classList.remove('dark-mode');
-                    modeToggle.innerHTML = '☀ Mode Terang';
                     localStorage.setItem('theme', 'light');
                 }
+                
+                const newText = isDark ? '🌙 Mode Gelap' : '☀ Mode Terang';
+                // Toggle mode button desktop disembunyikan di mobile, tapi tetap diupdate di desktop view
+                modeToggleDesktop.innerHTML = newText;
+                modeToggleMobile.innerHTML = newText;
             };
 
+            const toggleMode = () => {
+                if (body.classList.contains('light-mode')) {
+                    setMode('dark');
+                } else {
+                    setMode('light');
+                }
+            };
+            
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 setMode(savedTheme);
@@ -1028,13 +1213,8 @@
                 setMode('light');
             }
 
-            modeToggle.addEventListener('click', () => {
-                if (body.classList.contains('light-mode')) {
-                    setMode('dark');
-                } else {
-                    setMode('light');
-                }
-            });
+            modeToggleDesktop.addEventListener('click', toggleMode);
+            modeToggleMobile.addEventListener('click', toggleMode);
 
             // --- Logika Chat AI (Simulasi) ---
             const addMessage = (text, sender) => {
