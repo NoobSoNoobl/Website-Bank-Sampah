@@ -26,9 +26,9 @@
             --color-primary: #0D47A1; 
             --color-secondary: #66BB6A; 
             --color-accent: #FFC107; 
-            --color-text-dark: #E0F7FA;
-            --color-bg-light: #121212; 
-            --color-bg-card-light: #1E1E1E; 
+            --color-text-dark: #E0F7FA; /* Teks terang */
+            --color-bg-light: #121212; /* Background utama gelap */
+            --color-bg-card-light: #1E1E1E; /* Background card gelap */
             --color-text-on-primary: #FFFFFF;
         }
 
@@ -358,11 +358,12 @@
         }
 
         /* =================================
-            5. FOOTER (Kontak selalu ada)
+            5. FOOTER (Kontak selalu ada) - TELAH DILAKUKAN PERBAIKAN WARNA TEKS
             ================================= */
         footer {
+            /* Background akan gelap di Light Mode (--color-text-dark) */
             background-color: var(--color-text-dark);
-            /* PERBAIKAN: Menggunakan variabel yang akan berubah di dark mode */
+            /* Warna teks akan terang di Light Mode (--color-bg-light) */
             color: var(--color-bg-light); 
             padding: 30px 0;
             text-align: center;
@@ -370,26 +371,15 @@
             margin-top: 40px;
         }
 
-        /* PERBAIKAN: Pastikan warna teks footer kontras di mode gelap */
+        /* PENGATURAN SPESIFIK UNTUK MODE GELAP */
         .dark-mode footer {
-            /* Saat body di dark mode, --color-text-dark berubah menjadi warna terang. */
-            /* Kita perlu memastikan warna teks di footer tetap kontras di atas --color-text-dark yang baru (sekarang gelap). */
-            /* Menggunakan warna yang kontras dengan latar belakang #121212 atau #1E1E1E */
-            color: var(--color-text-dark); /* Menggunakan warna teks terang di mode gelap (sudah terdefinisi di :root dark-mode) */
-            /* Latar belakang footer di dark-mode akan menjadi var(--color-text-dark) dari dark-mode, yaitu #E0F7FA (sangat terang).
-               Jika latar belakang terang, teks harus gelap. */
+            /* Background di Mode Gelap harus lebih gelap dari Light Mode, misal #1E1E1E */
+            background-color: #1E1E1E; 
+            /* Warna teks di Mode Gelap harus terang (--color-text-dark di dark-mode adalah #E0F7FA) */
+            color: var(--color-text-dark); 
         }
         
-        /* MENGATASI MASALAH KONTRAS DI DARK MODE */
-        /* Karena --color-text-dark di dark-mode adalah warna terang (#E0F7FA),
-           maka latar belakang footer di dark-mode menjadi sangat terang.
-           Kita perlu mengembalikan latar belakang ke warna gelap. */
-        .dark-mode footer {
-            background-color: #1E1E1E; /* Warna gelap untuk background footer di dark mode */
-            color: var(--color-text-dark); /* Warna teks terang di dark mode */
-        }
-        
-        /* WARNA LINK DI FOOTER (Tetap kuning aksen untuk kontras) */
+        /* WARNA LINK DI FOOTER (Tetap kuning aksen untuk kontras di kedua mode) */
         footer a {
             color: var(--color-accent);
             margin: 0 10px;
@@ -599,7 +589,7 @@
         @media (max-width: 768px) {
             /* Perbaikan Global */
             .container {
-                width: 95%; /* Sedikit lebih lebar di mobile untuk memaksimalkan ruang */
+                width: 95%; 
             }
 
             /* # Perbaikan Header dan Navigasi */
@@ -610,12 +600,12 @@
             }
             
             header h1 {
-                font-size: 1.5rem; /* Ukuran judul lebih kecil */
+                font-size: 1.5rem; 
                 margin-bottom: 10px; 
             }
 
             nav {
-                width: 100%; /* Pastikan nav menggunakan lebar penuh */
+                width: 100%; 
             }
 
             nav ul {
@@ -625,10 +615,9 @@
             }
             
             nav ul li {
-                margin: 5px 8px; /* Jarak sentuh yang lebih baik, lebih rapat */
+                margin: 5px 8px; 
             }
             
-            /* Pastikan tombol Navigasi cukup besar untuk disentuh */
             nav ul li a {
                 padding: 8px 10px;
                 font-size: 0.9rem;
@@ -636,18 +625,18 @@
 
             #mode-toggle {
                 margin-top: 15px;
-                width: 70%; /* Lebar tombol proporsional */
+                width: 70%; 
                 max-width: 250px; 
             }
 
             /* # Perbaikan Hero dan Banner */
             .image-banner {
-                height: 200px; /* Tinggi banner lebih pendek */
+                height: 200px; 
                 margin-bottom: 20px;
             }
 
             .hero h2 {
-                font-size: 1.5rem; /* Font size lebih kecil */
+                font-size: 1.5rem; 
             }
 
             .hero p {
@@ -662,7 +651,7 @@
             }
             
             .section-tujuan h2, .materi-page h2, .video-page h2 {
-                font-size: 1.8rem; /* Judul Halaman disamakan */
+                font-size: 1.8rem; 
                 margin-bottom: 25px;
             }
             
@@ -676,13 +665,13 @@
             .cards-container-preview {
                 flex-direction: column;
                 gap: 20px; 
-                padding: 0 10px 40px; /* Tambahkan padding samping */
+                padding: 0 10px 40px; 
             }
             
             .card {
-                min-width: 100%; /* Card mengambil seluruh lebar container */
+                min-width: 100%; 
                 padding: 20px;
-                text-align: left; /* Teks Card lebih baik rata kiri di mobile */
+                text-align: left; 
             }
             
             .card h3 {
@@ -690,7 +679,7 @@
             }
             
             .card .icon-wrapper {
-                float: left; /* Pindahkan ikon ke kiri */
+                float: left; 
                 margin-right: 15px;
                 margin-bottom: 0;
             }
@@ -708,19 +697,19 @@
                 font-size: 1.4rem;
             }
 
-            /* # Perbaikan Video (Diperbaiki agar rasio tetap 16:9 dan tidak ada teks di wrapper) */
+            /* # Perbaikan Video */
             .video-wrapper {
                 width: 95%; 
                 margin: 0 auto 20px;
-                padding-bottom: 56.25%; /* Rasio 16:9 standar untuk layar kecil */
+                padding-bottom: 56.25%; 
             }
             
             /* # Perbaikan Chat Modal */
             .chat-modal {
                 width: 95%;
                 right: 2.5%;
-                bottom: 80px; /* Jauhkan sedikit dari tombol chat */
-                height: 75%; /* Lebih tinggi di mobile */
+                bottom: 80px; 
+                height: 75%; 
             }
 
             #ai-chat-button {
@@ -757,7 +746,7 @@
     </header>
 
     <div id="main-content" class="container">
-        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -810,7 +799,7 @@
             const chatInputField = document.getElementById('chat-input-field');
             const sendChatBtn = document.getElementById('send-chat-btn');
             
-            // Modal Materi Elements (dipertahankan untuk fungsionalitas)
+            // Modal Materi Elements
             const materiModal = document.getElementById('materi-modal');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-body');
