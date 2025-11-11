@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE ahtml>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -32,8 +32,8 @@
             --color-bg-light: #121212; /* Background utama gelap */
             --color-bg-card-light: #1E1E1E; /* Background card gelap */
             --color-text-on-primary: #FFFFFF;
-            --color-header: #A6B98B;
-            --color-logo: #728359;
+            --color-header: #728359;
+            --color-logo: #A6B98B;
         }
 
         /* Reset dan Dasar */
@@ -90,6 +90,7 @@
             /* Default: Text center, tapi di mobile diubah */
             text-align: center;
             flex-grow: 1;
+            color: var(--color-logo);
         }
         
         /* TOMBOL HAMBURGER (Baru) - Sembunyi di Desktop */
@@ -97,7 +98,7 @@
             display: none; 
             background: none;
             border: none;
-            color: var(--color-text-on-primary);
+            color: var(--color-logo);
             font-size: 1.8rem;
             cursor: pointer;
             padding: 0;
@@ -116,7 +117,7 @@
         
         /* Navigasi Link Style */
         #desktop-nav ul li a {
-            color: var(--color-text-on-primary);
+            color: var(--color-logo);
             font-weight: 600;
             padding: 8px 15px;
             border-radius: 8px;
@@ -915,7 +916,7 @@
 
     <div id="materi-modal" class="modal-overlay">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
+            <span class="modal-close fas fa-times" aria-label="Tutup">&times;</span>
             <h3 id="modal-title"></h3>
             <div id="modal-body"></div>
         </div>
@@ -954,7 +955,7 @@
             // Mobile Nav Links
             const mobileNavLinks = document.querySelectorAll('#mobile-nav ul li a');
             
-            // Sidebar Elements (Baru)
+            // Sidebar Elements
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const mobileSidebar = document.getElementById('mobile-sidebar');
             const closeSidebarBtn = document.getElementById('close-sidebar-btn');
@@ -1043,7 +1044,7 @@
                         <div class="tujuan-placeholder">
                             <p style="color:var(--color-text-dark);">Tujuan kami membuat website tentang limbah di SMPN 9 Semarang adalah <strong>untuk meningkatkan kesadaran seluruh warga sekolah mengenai betapa pentingnya mengelola sampah dalam bentuk apa pun agar tidak menimbulkan dampak negatif bagi lingkungan.</strong> Melalui website ini, kami ingin <strong>memberikan informasi yang edukatif dan interaktif tentang berbagai jenis limbah, cara pengelolaannya yang benar, serta dampak yang ditimbulkan jika sampah tidak ditangani dengan baik.</strong></p>
                             <br>
-                            <p style="color:var(--color-text-dark);">Selain itu, website ini juga <strong>bertujuan untuk mengontrol dan memantau jumlah serta jenis sampah yang dihasilkan di lingkungan sekolah, sehingga kami dapat menemukan solusi yang tepat berdasarkan data-data yang telah kami kumpulkan.</strong> Dengan adanya website ini, diharapkan seluruh siswa, guru, dan warga sekolah dapat lebih peduli terhadap kebersihan dan kelestarian lingkungan, serta ikut berpartisipasi aktif dalam menciptakan lingkungan sekolah yang bersih, dan sehat.</p>
+                            <p style="color:var(--color-text-dark);">Selain itu, website ini juga <strong>bertujuan untuk mengontrol dan memantau jumlah serta jenis sampah yang dihasilkan di lingkungan sekolah, sehingga kami dapat menemukan solusi yang tepat berdasarkan data-data yang telah kami kumpulkan.</strong> Dengan adanya website ini, diharapkan seluruh siswa, guru, dan warga sekolah dapat lebih peduli terhadap kebersihan dan kelestarian lingkungan, serta ikut berpartisipasi aktif dalam menciptakan lingkungan sekolah yang bersih, dan sehat.</p>
                         </div>
                     </section>
 
@@ -1079,7 +1080,7 @@
                         </div>
                     </section>
                 `;
-                addCardListeners();
+                addCardListeners(); // Memanggil ulang listener card
                 addCustomNavListeners();
             };
 
@@ -1166,14 +1167,55 @@
                 });
             };
 
+            // --- Fungsi Baru: Membuka Modal Materi ---
+            const openMateriModal = (key) => {
+                const data = materiDatabase[key];
+                if (data) {
+                    modalTitle.innerHTML = `${data.icon} ${data.title}`;
+                    modalBody.innerHTML = data.content;
+                    materiModal.style.display = 'flex'; // Tampilkan overlay
+                    // Memberikan sedikit waktu sebelum menambahkan class 'active' untuk animasi
+                    setTimeout(() => {
+                        materiModal.classList.add('active'); 
+                    }, 10);
+                } else {
+                    console.error('Data materi tidak ditemukan untuk kunci:', key);
+                }
+            };
+            
+            // --- Logika Baru: Menghubungkan Card ke Modal ---
             const addCardListeners = () => {
                 const cards = document.querySelectorAll('.card');
                 cards.forEach(card => {
                     card.addEventListener('click', () => {
-                        navigateTo('materi');
+                        const targetKey = card.getAttribute('data-target');
+                        if (targetKey) {
+                            openMateriModal(targetKey);
+                        } else {
+                            // Fallback jika tidak ada data-target
+                            navigateTo('materi');
+                        }
                     });
                 });
             };
+            
+            // --- Logika Penutup Modal Materi ---
+            const closeMateriModal = () => {
+                materiModal.classList.remove('active');
+                setTimeout(() => {
+                    materiModal.style.display = 'none';
+                }, 300); // Harus sesuai dengan durasi CSS transition
+            };
+            
+            modalClose.addEventListener('click', closeMateriModal);
+            
+            materiModal.addEventListener('click', (e) => {
+                // Tutup modal jika mengklik area overlay di luar modal-content
+                if (e.target.classList.contains('modal-overlay')) {
+                    closeMateriModal();
+                }
+            });
+
             
             // --- Logika Sidebar ---
             const openSidebar = () => {
@@ -1199,10 +1241,11 @@
                     localStorage.setItem('theme', 'light');
                 }
                 
-                const newText = isDark ? '🌙 Mode Gelap' : '☀ Mode Terang';
-                // Toggle mode button desktop disembunyikan di mobile, tapi tetap diupdate di desktop view
-                modeToggleDesktop.innerHTML = newText;
-                modeToggleMobile.innerHTML = newText;
+                const icon = isDark ? '🌙' : '☀';
+                const text = isDark ? 'Mode Gelap' : 'Mode Terang';
+                
+                modeToggleDesktop.innerHTML = `${icon} ${text}`;
+                modeToggleMobile.innerHTML = `${icon} ${text}`;
             };
 
             const toggleMode = () => {
@@ -1223,7 +1266,7 @@
             modeToggleDesktop.addEventListener('click', toggleMode);
             modeToggleMobile.addEventListener('click', toggleMode);
 
-            // --- Logika Chat AI (Simulasi) ---
+            // --- Logika Chat AI (SIMULASI TELAH DIPERBAIKI) ---
             const addMessage = (text, sender) => {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = sender === 'user' ? 'message-user' : 'message-ai';
@@ -1233,17 +1276,53 @@
             };
 
             const simulateAIResponse = (userMessage) => {
-                let response = "Maaf, saya hanya Asisten simulasi. Silakan lihat informasi lengkap di bagian 'Materi' atau 'Video' kami.";
+                // Jawaban default jika tidak ada kata kunci yang cocok
+                let response = "Maaf, saya Asisten simulasi Bank Sampah Ceria. Ajukan pertanyaan yang spesifik tentang Bank Sampah, pemilahan, atau dampaknya. Contoh: 'Apa itu 3R?' atau 'Mengapa harus pilah sampah?'.";
                 const lowerCaseMsg = userMessage.toLowerCase();
 
-                if (lowerCaseMsg.includes("sampah")) {
-                    response = "Bank Sampah Ceria menerima sampah anorganik terpilah seperti plastik, kertas, dan logam. Cek halaman Materi untuk info lengkap!";
-                } else if (lowerCaseMsg.includes("menabung")) {
-                    response = "Untuk menabung, pisahkan sampah Anda, bawa ke lokasi Bank Sampah terdekat, dan petugas kami akan menimbangnya.";
-                } else if (lowerCaseMsg.includes("terima kasih")) {
-                    response = "Sama-sama! Senang bisa membantu Anda menjaga lingkungan. Mari bersama wujudkan Indonesia bersih! 🌿";
+                // 1. Definisi dan Konsep
+                if (lowerCaseMsg.includes("apa itu bank sampah") || lowerCaseMsg.includes("definisi bank sampah") || lowerCaseMsg.includes("pengertian bank sampah")) {
+                    response = "🏦 **Bank Sampah** adalah tempat pengelolaan sampah terpilah (terutama anorganik) yang dikelola dengan sistem seperti perbankan. Sampah yang disetorkan ditimbang dan dicatat sebagai **tabungan uang** bagi penyetornya. Ini adalah inisiatif ekonomi sirkular!";
+                } else if (lowerCaseMsg.includes("apa itu 3r") || lowerCaseMsg.includes("jelaskan 3r")) {
+                    response = "♻️ **3R** adalah singkatan dari **Reduce, Reuse, dan Recycle**. Ini adalah konsep kunci dalam manajemen sampah berkelanjutan: **Reduce** (kurangi), **Reuse** (gunakan kembali), dan **Recycle** (daur ulang).";
+                } else if (lowerCaseMsg.includes("pengertian sampah") || lowerCaseMsg.includes("apa itu limbah")) {
+                    response = "Sampah/Limbah adalah sisa-sisa kegiatan sehari-hari manusia dan/atau proses alam yang berbentuk padat. Pemilahan yang benar akan mengubah sampah menjadi sumber daya.";
+                } 
+                
+                // 2. Pemilahan dan Jenis Sampah
+                else if (lowerCaseMsg.includes("jenis sampah") || lowerCaseMsg.includes("kategori sampah")) {
+                    response = "Secara umum, sampah dibagi menjadi: **Organik** (sisa makanan, daun, bisa dikompos), **Anorganik** (plastik, kertas, logam, bisa didaur ulang), dan **B3** (bahan berbahaya dan beracun).";
+                } else if (lowerCaseMsg.includes("sampah anorganik") || lowerCaseMsg.includes("contoh daur ulang")) {
+                    response = "Contoh sampah anorganik yang bisa ditabung: botol plastik, kertas HVS, kardus, kaleng, dan kaca. Pastikan semuanya **bersih dan kering** ya!";
+                } else if (lowerCaseMsg.includes("sampah organik") || lowerCaseMsg.includes("kompos")) {
+                    response = "Sampah organik (sisa makanan, daun) bisa diolah menjadi kompos. **Kompos** adalah hasil pelapukan sampah organik yang kaya nutrisi untuk menyuburkan tanah.";
+                } else if (lowerCaseMsg.includes("bagaimana cara pilah") || lowerCaseMsg.includes("cara memilah")) {
+                    response = "Pisahkan sampah berdasarkan jenisnya (Organik, Anorganik, B3) sejak di sumber (rumah/kelas). Untuk yang anorganik, **cuci dan keringkan** sebelum ditabung agar nilai jualnya optimal.";
+                } else if (lowerCaseMsg.includes("sampah b3") || lowerCaseMsg.includes("limbah b3") || lowerCaseMsg.includes("baterai")) {
+                    response = "Limbah B3 (Bahan Berbahaya dan Beracun) seperti baterai bekas, lampu neon, atau kemasan obat harus dikumpulkan secara terpisah. Jangan dibuang ke Bank Sampah umum atau TPA karena sangat merusak lingkungan!";
                 }
 
+                // 3. Proses Bank Sampah dan Manfaat
+                else if (lowerCaseMsg.includes("proses bank sampah") || lowerCaseMsg.includes("cara menabung") || lowerCaseMsg.includes("menyetor sampah")) {
+                    response = "Proses menabung: **Pilahkan** -> **Bersihkan** -> **Bawa ke Bank Sampah** -> **Timbang & Catat** -> **Dapat Uang Tabungan/Poin**! Semudah itu!";
+                } else if (lowerCaseMsg.includes("dampak negatif sampah") || lowerCaseMsg.includes("bahaya sampah") || lowerCaseMsg.includes("pencemaran")) {
+                    response = "Jika tidak dikelola, sampah dapat menyebabkan **pencemaran air/tanah**, sumber penyakit, dan menghasilkan gas metana yang memperparah **pemanasan global**. Sampah plastik juga merusak ekosistem laut!";
+                } else if (lowerCaseMsg.includes("keuntungan bank sampah") || lowerCaseMsg.includes("manfaat bank sampah")) {
+                    response = "Keuntungannya: 1) Lingkungan lebih bersih, 2) Sampah jadi uang, 3) Mengurangi volume TPA, 4) Edukasi masyarakat. Ekonomi untung, bumi pun senang! 💰🌱";
+                } else if (lowerCaseMsg.includes("bank sampah di sekolah") || lowerCaseMsg.includes("manfaat untuk siswa")) {
+                    response = "Bank Sampah di sekolah sangat bagus! Ini melatih siswa **disiplin memilah**, menumbuhkan **kepedulian lingkungan**, dan memberikan edukasi praktis tentang ekonomi sirkular.";
+                } else if (lowerCaseMsg.includes("daur ulang") || lowerCaseMsg.includes("recycle")) {
+                    response = "Daur ulang adalah proses mengubah sampah (anorganik) menjadi barang baru yang dapat digunakan lagi. Contoh: botol plastik menjadi biji plastik, kertas menjadi kertas baru. Ini menghemat energi dan bahan baku.";
+                }
+                
+                // 4. Closing/General
+                else if (lowerCaseMsg.includes("terima kasih") || lowerCaseMsg.includes("thank you") || lowerCaseMsg.includes("thanks")) {
+                    response = "Sama-sama! Senang bisa membantu Anda menjaga lingkungan. Mari bersama wujudkan Indonesia bersih! 🌿";
+                } else if (lowerCaseMsg.includes("halo") || lowerCaseMsg.includes("hai") || lowerCaseMsg.includes("assalamualaikum")) {
+                    response = "Halo! Silakan ajukan pertanyaan seputar Bank Sampah atau pengelolaan limbah lainnya. Saya siap membantu Anda. 😊";
+                }
+                
+                // Tambahkan jeda waktu simulasi untuk efek AI yang memproses
                 setTimeout(() => {
                     addMessage(response, 'ai');
                 }, 1000);
